@@ -1,0 +1,129 @@
+<html lang="en">
+<head>
+{{>header}}
+</head>
+<body>
+{{>nav}}
+{{pageTitle}}
+<div class="container">
+
+<div class="row pt-3">
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary d-inline mr-5" data-toggle="modal" data-target="#addWorkout">
+  Add Workout
+</button>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="addWorkout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Workout</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+  <form method="post" role="form">
+ <div class="form-group">
+    <input type="text" class="form-control" id="title"
+    name="title" placeholder="Title" required>
+ </div>
+ <div class="form-group">
+    <input type="text" class="form-control" id="exerciseType"
+    name="exerciseType" placeholder="Exercise Type"
+required>
+ </div>
+ <div class="form-group">
+    <input type="text" class="form-control" id="duration"
+    name="duration" placeholder="Duration"
+required>
+ </div>
+ <div class="form-group">
+    <input type="text" class="form-control" id="caloriesBurned"
+    name="caloriesBurned" placeholder="Calories Burned"
+required>
+ </div>
+ <div class="form-group">
+    <input type="text" class="form-control" id="weight"
+    name="weight" placeholder="Weight">
+ </div>
+ <div class="form-group">
+    <input type="text" class="form-control" id="reps"
+    name="reps" placeholder="Reps">
+ </div>
+ <div class="form-group">
+    <input type="text" class="form-control" id="date"
+    name="date" placeholder="Date"
+required>
+ </div>
+ <div class="form-group">
+    <input type="text" class="form-control" id="user"
+    name="user" placeholder="Username"
+required>
+ </div>
+ <div class="form-group">
+<input type="submit" value="Save Workout" class="btn btn-primary">
+</div>
+</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{{#workouts}}
+<div class="list-group w-75 pt-2 pb-2">
+<div class="list-group-item text-center">
+<div class="row">
+    <h5 class="d-inline col-6">Title</h5>
+    <p class="d-inline">{{title}}</p>
+    </div>
+    <div class="row">
+    <h5 class="d-inline col-6">Exercise Type</h5>
+    <p class="d-inline">{{exerciseType}}</p>
+    </div>
+    <div class="row">
+    <h5 class="d-inline col-6">Duration</h5>
+    <p class="d-inline">{{duration}}</p>
+    </div>
+    <div class="row">
+    <h5 class="d-inline col-6">Calories Burned</h5>
+    <p class="d-inline">{{caloriesBurned}}</p>
+    </div>
+    <div class="row">
+    <h5 class="d-inline col-6">Weight</h5>
+    <p class="d-inline">{{weight}}</p>
+    </div>
+    <div class="row">
+    <h5 class="d-inline col-6">Reps</h5>
+    <p class="d-inline">{{reps}}</p>
+    </div>
+    <div class="row">
+    <h5 class="d-inline col-6">Date</h5>
+    <p class="d-inline">{{date}}</p>
+    </div>
+    <div class="row">
+    <h5 class="d-inline col-6">User</h5>
+    <p class="d-inline">{{user}}</p>
+    </div>
+
+    </div>
+    </div>
+{{/workouts}} 
+
+
+</div>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>
