@@ -15,7 +15,7 @@ class Users {
         this.db.insert({
         firstname: 'Billy',
         surname: 'McMann',
-        email: 'b_davies@hotmail.com',
+        email: 'b_mcManns@hotmail.com',
         password: 'bdavies1',
         gender: 'Male',
         age: '28',
@@ -24,22 +24,6 @@ class Users {
         goal: 'Muscle Gain',
         city: 'Toronto'
         });
-        //for later debugging
-        console.log('db entry billy inserted');
-        this.db.insert({
-            firstname: 'Sarah',
-            surname: 'Henry',
-            email: 's_henry@hotmail.com',
-            password: 'sHenry1',
-            gender: 'Female',
-            age: '24',
-            weight: '56 KG',
-            height: '150cm',
-            goal: 'Tone Up',
-            city: 'Ottawa'
-        });
-        //for later debugging
-        console.log('db entry Sarah inserted');
     }
 
     //a function to return all entries from the database
@@ -56,55 +40,26 @@ getAllUsers() {
     } else {
     resolve(users);
     //to see what the returned data looks like
-    console.log('function all() returns: ', entries);
+    console.log('function all() returns: ', users);
     }
     })
     })
     } 
 
-    // getPetersEntries() {
-    //     return new Promise((resolve, reject) => {
-    //         this.db.find({author: 'Peter'}, function(err, entries) {
-    //             if(err) {
-    //                 reject(err)
-    //             } else {
-    //                 resolve(entries);
-    //                 console.log('getPetersEntries() return: ' , entries);
-    //             }
-    //         }) 
-    //     })
-    // }
+    getUserDetails() {
+        return new Promise((resolve, reject) => {
+        this.db.find({ firstname: 'Billy' }, function(err, user) {
+        if (err) {
+        reject(err);
+        } else {
+        resolve(user);
+        console.log('user Details', user);
+        }
+        })
+        })
+        }
 
-    // addEntry(author, subject, contents) {
-    //     var entry = {
-    //         author: author,
-    //         subject: subject,
-    //         contents: contents,
-    //         published: new Date().toISOString().split('T')[0]
-    //     }
-    //     console.log('entry creates, entry');
 
-    //     this.db.insert(entry, function(err, doc) {
-    //         if (err) {
-    //             console.log('Error inserting document', subject);
-    //         } else {
-    //             console.log('document inserted into database', doc);
-    //         }
-    //     })
-    // }
-
-    // getEntriesByUser(authorName) {
-    //     return new Promise((resolve, reject) => {
-    //     this.db.find({ 'author': authorName }, function(err, entries) {
-    //     if (err) {
-    //     reject(err);
-    //     } else {
-    //     resolve(entries);
-    //     console.log('getEntriesByUser returns: ', entries);
-    //     }
-    //     })
-    //     })
-    //     }
 }
 
 module.exports = Users;

@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+{{>header}}
+</head>
+<body>
+{{>nav}}
+  <div class="w-50 mt-5 ml-5">      
+{{#plans}}
+<div >
+<div class="border border-dark w-50">
+<div>
+{{plan}}
+</div>
+<div>
+  <table class="table">
+        <thead>
+            <th>Week Dates</th>
+        </thead>
+        <tbody>
+        {{#weekDates}}
+            <tr>
+                <td>{{date}}</td>
+            </tr>
+        {{/weekDates}}
+        </tbody>
+    </table>
+
+</div>
+<div>
+{{#goals}}
+<p>{{exercise}}</p>
+<p>{{duration}}</p>
+<p>{{difficulty}}</p>
+{{/goals}}
+{{user}}
+</div>
+</div>
+{{/plans}}
+</div>
+</div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+</html>

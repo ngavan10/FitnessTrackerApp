@@ -2,8 +2,52 @@
 <head>
 {{>header}}
 </head>
-<body>
+<body >
 {{>nav}}
+<div class="container p-3">
 {{pageTitle}}
+{{#user}}
+<div class="list-group w-75 pt-2 pb-2">
+<a style="color:black; text-decoration: none">
+<div class="list-group-item text-center">
+<div class="row">
+    <h5 class="d-inline col-6">Name</h5>
+    <p class="d-inline">{{firstname}} {{surname}}</p>
+    </div>
+    <div class="row">
+    <h5 class="d-inline col-6">Email</h5>
+    <p class="d-inline">{{email}}</p>
+    </div>
+    <div class="row">
+    <h5 class="d-inline col-6">Gender</h5>
+    <p class="d-inline">{{gender}}</p>
+    </div>
+    <div class="row">
+    <h5 class="d-inline col-6">Age</h5>
+    <p class="d-inline">{{age}}</p>
+    </div>
+    <div class="row">
+    <h5 class="d-inline col-6">Weight</h5>
+    <p class="d-inline">{{weight}}</p>
+    </div>
+    <div class="row">
+    <h5 class="d-inline col-6">Height</h5>
+    <p class="d-inline">{{height}}</p>
+    </div>
+    <div class="row">
+    <h5 class="d-inline col-6">Goal</h5>
+    <p class="d-inline">{{goal}}</p>
+    </div>
+    <div class="row">
+    <h5 class="d-inline col-6">City</h5>
+    <p class="d-inline">{{city}}</p>
+    </div>
+
+    </div>
+    </a>
+    </div>
+{{/user}}
+</div>
 </body>
+
 </html>

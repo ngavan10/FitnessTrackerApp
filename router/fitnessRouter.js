@@ -6,11 +6,14 @@ module.exports = router;
 router.get("/",
     controller.landing_page
 );
-
 router.get("/user-profile", controller.user_profile);
+// router.get("/plan/:plan", controller.show_plan);
+router.get("/create-a-plan", controller.create_a_plan);
 router.get("/dashboard", controller.dashboard);
-router.get("/workouts", controller.workout);
-router.post('/workouts', controller.post_new_workout); 
+// router.get("/workouts", controller.workout);
+// router.post('/workouts', controller.post_new_workout); 
+router.get('/plans', controller.show_plans);
+ router.post('/create-a-plan', controller.create_new_plan);
 
 
 router.use(function(req, res) {
