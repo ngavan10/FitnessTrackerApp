@@ -37,9 +37,9 @@ exports.create_a_plan = function(req, res) {
             res.status(400).send("Workout must have a title");
             return;
         }
-        
-        let d = req.body.date;
 
+        let d = req.body.date;
+    
         var newDate = [];
         var startDate = d;
 
@@ -68,6 +68,20 @@ exports.create_a_plan = function(req, res) {
                 'plans': plans
                 });
         })
+    }
+
+    exports.add_goal = function (req, res) {
+
+        console.log(req.body.title)
+        console.log(req.body.exercise)
+        console.log(req.body.duration)
+        console.log(req.body.difficulty)
+        // plansDb.addGoalToPlan(
+        //     req.body.title,
+        //     req.body.exercise,
+        //     req.body.duration,
+        //     req.body.difficulty,
+        // )
     }
 
     exports.user_profile = function (req, res) {

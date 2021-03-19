@@ -62,14 +62,14 @@ class Plans {
     }
 
     addGoalToPlan(plan, exercise, duration, difficulty) {
-        var plan = {
+        var goal = {
             exercise: exercise,
             duration: duration,
             difficulty: difficulty   
         }
         console.log('plan created, plan');
 
-        this.db.insert(plan, function(err, doc) {
+        this.db.update({plan: plan}, {$push: goal}, function(err, doc) {
             if (err) {
                 console.log('Error inserting document', plan);
             } else {
