@@ -70,20 +70,6 @@ exports.create_a_plan = function(req, res) {
         })
     }
 
-    exports.add_goal = function (req, res) {
-
-        console.log(req.body.title)
-        console.log(req.body.exercise)
-        console.log(req.body.duration)
-        console.log(req.body.difficulty)
-        // plansDb.addGoalToPlan(
-        //     req.body.title,
-        //     req.body.exercise,
-        //     req.body.duration,
-        //     req.body.difficulty,
-        // )
-    }
-
     exports.user_profile = function (req, res) {
         userDb.getUserDetails().then((user) => {
             res.render('user-profile', {
@@ -96,4 +82,19 @@ exports.create_a_plan = function(req, res) {
 exports.login = function (req, res) {
     userDb.login(req.body.username, req.body.password);
     res.redirect('/dashboard');
+}
+
+exports.delete_plan = function(req, res) {
+    plansDb.deletePlan(req.body.deletePlan);
+    res.redirect('/plans')
+};
+
+exports.delete_goal = function(req, res) {
+    plansDb.deleteGoal(req.body.plan, req.body.deleteGoal);
+    res.redirect('/plans')
+}
+
+exports.add_goal = function(req, res) {
+    plansDb.addGoalToPlan(req.body.goalNumber, req.body.exercise, req.body.duration, req.body.difficulty );
+    res.redirect('/plans')
 }

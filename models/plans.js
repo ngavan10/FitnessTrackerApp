@@ -12,7 +12,7 @@ class Plans {
 
     init() {
         this.db.insert({
-        plan: 'Week 1 Plan',
+        plan: 'Week1Plan',
         weekDates: [{ date: '2021-03-15' },
         { date: '2021-03-16' },
         { date: '2021-03-17' },
@@ -20,7 +20,7 @@ class Plans {
         { date: '2021-03-19' },
         { date: '2021-03-20' },
         { date: '2021-03-21'}],
-        goals: [{exercise: 'Football', duration: '90 minutes', difficulty: 'Hard'}],
+        goals: [{goalNumber: 1, exercise: 'Football', duration: '90 minutes', difficulty: 'Hard'}],
         user: 'Billy'
         });
     }
@@ -65,7 +65,7 @@ class Plans {
         var plan = {
             plan: plan,
         }
-        console.log('plan created, plan');
+        console.log('plan deleted, plan');
 
         this.db.remove(plan, function(err, doc) {
             if (err) {
@@ -76,15 +76,29 @@ class Plans {
         })
     }
 
-    addGoalToPlan(plan, exercise, duration, difficulty) {
+    deleteGoal(plan, goalNumber) {
+        console.log('goal deleted, plan, goalNumber');
+        console.log( goalNumber);
+
+        this.db.remove({"goals.goalNumber": goalNumber}, function(err, doc) {
+            if (err) {
+                console.log('Error deleting document', plan);
+            } else {
+                console.log('document deleted into database', doc);
+            }
+        })
+    }
+
+    addGoalToPlan(goalNumber, exercise, duration, difficulty, plan) {
         var goal = {
+            goalNumber: goalNumber,
             exercise: exercise,
             duration: duration,
             difficulty: difficulty   
         }
         console.log('plan created, plan');
 
-        this.db.update({plan: plan}, {$push: goal}, function(err, doc) {
+        this.db.update({plan: 'Week1Plan'}, {$push: {goals: goal}}, function(err, doc) {
             if (err) {
                 console.log('Error inserting document', plan);
             } else {

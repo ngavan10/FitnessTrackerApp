@@ -10,7 +10,12 @@
 <div >
 <div class="border border-dark">
 <div>
+
 {{plan}}
+<form action='/delete' method='post'>
+        <input type="hidden" name="deletePlan" value="{{plan}}">
+        <input type='submit' class="btn btn-danger" value='Delete Plan'>
+</form>
 </div>
 <div>
 {{user}}
@@ -37,12 +42,41 @@
             <th>Goals</th>
         </thead>
         <tbody>
+                <form method="post" action="/addGoal" role="form">
+ <div class="form-group">
+    <input type="text" class="form-control" id="goalNumber"
+    name="goalNumber" placeholder="Goal Number" required>
+ </div>
+  <div class="form-group">
+    <input type="text" class="form-control" id="exercise"
+    name="exercise" placeholder="Exercise" required>
+ </div>
+   <div class="form-group">
+    <input type="text" class="form-control" id="duration"
+    name="duration" placeholder="Duration" required>
+ </div>
+   <div class="form-group">
+    <input type="text" class="form-control" id="difficulty"
+    name="difficulty" placeholder="Difficulty" required>
+ </div>
+
+ <div class="form-group">
+<input type="submit" value="Add Goal" class="btn btn-primary">
+</div>
+</form>
         {{#goals}}
-            <tr class="d-inline">
+            <tr>
+                <td>{{goalNumber}}</td>
                 <td>{{exercise}}</td>
                 <td>{{duration}}</td>
                 <td>{{difficulty}}</td>
-                
+                <td>
+                <form action='/deleteGoal' method='post'>
+                    <input type="hidden" name="deleteGoal" value={{goalNumber}}>
+                    <input type="hidden" name="plan" value={{plan}}>
+                    <input type='submit' class="btn btn-danger" value='Delete Goal'>
+                </form>
+                </td>
             </tr>
         {{/goals}}
         </tbody>
@@ -51,6 +85,7 @@
 </div>
 </div>
 </div>
+
 {{/plans}}
 </div>
 </div>

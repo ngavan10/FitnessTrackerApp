@@ -15,6 +15,9 @@ router.get("/dashboard", controller.dashboard);
 router.get('/plans', controller.show_plans);
 router.post('/create-a-plan', controller.create_new_plan);
 router.post('/', controller.login);
+router.post('/delete', controller.delete_plan);
+router.post('/deleteGoal', controller.delete_goal);
+router.post('/addGoal', controller.add_goal);
 
 
 router.use(function(req, res) {
