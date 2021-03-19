@@ -13,7 +13,8 @@ router.get("/dashboard", controller.dashboard);
 // router.get("/workouts", controller.workout);
 // router.post('/workouts', controller.post_new_workout); 
 router.get('/plans', controller.show_plans);
- router.post('/create-a-plan', controller.create_new_plan);
+router.post('/create-a-plan', controller.create_new_plan);
+router.post('/', controller.login);
 
 
 router.use(function(req, res) {

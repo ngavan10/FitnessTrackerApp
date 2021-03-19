@@ -93,3 +93,7 @@ exports.create_a_plan = function(req, res) {
             })
         })
     }
+exports.login = function (req, res) {
+    userDb.login(req.body.username, req.body.password);
+    res.redirect('/dashboard');
+}

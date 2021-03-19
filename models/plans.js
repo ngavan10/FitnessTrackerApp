@@ -61,6 +61,21 @@ class Plans {
         })
     }
 
+    deletePlan(plan) {
+        var plan = {
+            plan: plan,
+        }
+        console.log('plan created, plan');
+
+        this.db.remove(plan, function(err, doc) {
+            if (err) {
+                console.log('Error deleting document', plan);
+            } else {
+                console.log('document deleted into database', doc);
+            }
+        })
+    }
+
     addGoalToPlan(plan, exercise, duration, difficulty) {
         var goal = {
             exercise: exercise,

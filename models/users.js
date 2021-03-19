@@ -48,7 +48,7 @@ getAllUsers() {
 
     getUserDetails() {
         return new Promise((resolve, reject) => {
-        this.db.find({ firstname: 'Billy' }, function(err, user) {
+        this.db.find({ firstname: 'Billy',  }, function(err, user) {
         if (err) {
         reject(err);
         } else {
@@ -58,8 +58,22 @@ getAllUsers() {
         })
         })
         }
+    
+    login(name, pass) {
+        return new Promise((resolve, reject) => {
+            this.db.find({ firstname: name, password: pass }, function(err, user) {
+            if (err) {
+            reject(err);
+            } else {
+            resolve(user);
+            console.log('Logged in ', user);
+            }
+            })
+            })
+            }
+    }
 
 
-}
+
 
 module.exports = Users;
