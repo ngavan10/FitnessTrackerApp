@@ -65,7 +65,14 @@ getAllUsers() {
             if (err) {
             reject(err);
             } else {
-            resolve(user);
+            if(user.firstname != name) {
+                console.log("Username Error");
+                return;
+            }
+            else {
+                resolve(user);
+            }
+            
             console.log('Logged in ', user);
             }
             })

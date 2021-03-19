@@ -80,11 +80,12 @@ class Plans {
         console.log('goal deleted, plan, goalNumber');
         console.log( goalNumber);
 
-        this.db.remove({"goals.goalNumber": goalNumber}, function(err, doc) {
+        this.db.update({ 'plan': 'Week1Plan'}, 
+        { $pull: { goals: { goalNumber: goalNumber } } }, function(err, goals) {
             if (err) {
                 console.log('Error deleting document', plan);
             } else {
-                console.log('document deleted into database', doc);
+                console.log('document deleted into database', goals);
             }
         })
     }
