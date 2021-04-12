@@ -62,11 +62,21 @@ exports.create_a_plan = function(req, res) {
 
     exports.show_plans = function (req, res) {
         plansDb.getAllPlans().then((plans) => {
-            res.render('plans', {
+                var newResult = [];
+                var result = plans.filter(res => {
+                    for(var i=0; i < res.goals.length; i++) {
+                        if(res.goals[i].status == 'incomplete') {
+                            newResult.push(res.goals[i])
+                        }
+                    }}
+                )
+                res.render('plans', {
                 'title': 'Fitness+',
                 'pageTitle': 'Plans',
-                'plans': plans
+                'plans': plans,
+                'incompleteGoals': newResult
                 });
+           
         })
     }
 
@@ -95,6 +105,11 @@ exports.delete_goal = function(req, res) {
 }
 
 exports.add_goal = function(req, res) {
-    plansDb.addGoalToPlan(req.body.goalNumber, req.body.exercise, req.body.duration, req.body.difficulty );
+    plansDb.addGoalToPlan(req.body.goalNumber, req.body.exercise, req.body.duration, req.body.difficulty, req.body.addToPlan );
+    res.redirect('/plans')
+}
+
+exports.update_goal = function(req, res) {
+    plansDb.updateGoal(req.body.plan, req.body.updateGoal, req.body.exercise, req.body.duration, req.body.difficulty);
     res.redirect('/plans')
 }

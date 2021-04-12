@@ -18,6 +18,7 @@ router.post('/', controller.login);
 router.post('/delete', controller.delete_plan);
 router.post('/deleteGoal', controller.delete_goal);
 router.post('/addGoal', controller.add_goal);
+router.post('/updateGoal', controller.update_goal);
 
 
 router.use(function(req, res) {

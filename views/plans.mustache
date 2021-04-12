@@ -2,27 +2,23 @@
 <head>
 {{>header}}
 </head>
+
 <body>
 {{>nav}}
 
-  <div class="w-75 mt-5 ml-5">      
+<div class="row">
+<div class="col mt-2 ml-2">  
+<h2>Plans</h2>   
 {{#plans}}
-<div >
-<div class="border border-dark">
-<div>
-
-{{plan}}
+<div class="border border-dark p-2 mt-2">
+<h5>{{plan}}</h5>
 <form action='/delete' method='post'>
-        <input type="hidden" name="deletePlan" value="{{plan}}">
-        <input type='submit' class="btn btn-danger" value='Delete Plan'>
-</form>
-</div>
-<div>
+            <input type="hidden" name="deletePlan" value="{{plan}}">
+            <input type='submit' class="btn btn-danger" value='Delete Plan'>
+    </form>
 {{user}}
-</div>
 <div>
-<div>
-  <table class="table">
+  <table class="table" >
         <thead>
             <th>Week Dates</th>
         </thead>
@@ -34,15 +30,13 @@
         {{/weekDates}}
         </tbody>
     </table>
-
-</div>
-<div>
-  <table class="table">
+      <table class="table" id="tab">
         <thead>
             <th>Goals</th>
         </thead>
         <tbody>
-                <form method="post" action="/addGoal" role="form">
+    <form method="post" action="/addGoal" role="form">
+    <input type="hidden" name="addToPlan" value="{{plan}}">
  <div class="form-group">
     <input type="text" class="form-control" id="goalNumber"
     name="goalNumber" placeholder="Goal Number" required>
@@ -65,16 +59,27 @@
 </div>
 </form>
         {{#goals}}
-            <tr>
+            <tr id="goal">
                 <td>{{goalNumber}}</td>
                 <td>{{exercise}}</td>
                 <td>{{duration}}</td>
                 <td>{{difficulty}}</td>
+                <td>{{status}}</td>
+                <td>
+                <form action='/updateGoal' method='post'>
+                    <input type="hidden" name="updateGoal" value="{{goalNumber}}">
+                    <input type="hidden" name="exercise" value="{{exercise}}">
+                    <input type="hidden" name="duration" value="{{duration}}">
+                    <input type="hidden" name="difficulty" value="{{difficulty}}">
+                    <input type="hidden" name="plan" value="{{plan}}">
+                    <input type='submit' class="btn btn-primary" value='Update'>
+                </form>
+                </td>
                 <td>
                 <form action='/deleteGoal' method='post'>
                     <input type="hidden" name="deleteGoal" value={{goalNumber}}>
-                    <input type="hidden" name="plan" value={{plan}}>
-                    <input type='submit' class="btn btn-danger" value='Delete Goal'>
+                    <input type="hidden" name="plan" value="{{plan}}">
+                    <input type='submit' class="btn btn-danger" value='Delete'>
                 </form>
                 </td>
             </tr>
@@ -84,12 +89,34 @@
 
 </div>
 </div>
-</div>
-
 {{/plans}}
 </div>
+<div class="col mt-2 mr-2">
+<h2>Incomplete Training Goals</h2>
+<div class="border border-dark p-2 mt-2">
+<table class="table">
+        <thead>
+            <th>Goal</th>
+            <th>Status</th>
+   
+        </thead>
+        <tbody>
+        {{#incompleteGoals}}
+            <tr>
+                <td>{{exercise}}</td>
+                <td>{{status}}</td>
+            </tr>
+        
+        {{/incompleteGoals}}    
+        </tbody>
+    </table>
+    </div>
 </div>
-</body>
+</div>
 
+</body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 </html>

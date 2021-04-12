@@ -65,12 +65,11 @@ getAllUsers() {
             if (err) {
             reject(err);
             } else {
-            if(user.firstname != name) {
-                console.log("Username Error");
-                return;
+            if(user.firstname == name && user.password == pass) {
+                resolve(user);
             }
             else {
-                resolve(user);
+                console.log('USername')
             }
             
             console.log('Logged in ', user);

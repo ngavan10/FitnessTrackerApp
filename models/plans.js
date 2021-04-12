@@ -1,7 +1,9 @@
 const nedb = require('nedb');
 
+const dbFilePath = 'plans.db'
+
 class Plans {
-    constructor(dbFilePath) {
+    constructor(dbFilePath = 'plans.db') {
         if (dbFilePath) {
             this.db = new nedb({filename: dbFilePath, autoload: true});
             console.log('DB connected to ' + dbFilePath);
@@ -9,10 +11,11 @@ class Plans {
             this.db = new nedb();
         }
     }
+    
 
     init() {
         this.db.insert({
-        plan: 'Week1Plan',
+        plan: 'Week 1 Plan',
         weekDates: [{ date: '2021-03-15' },
         { date: '2021-03-16' },
         { date: '2021-03-17' },
@@ -20,9 +23,23 @@ class Plans {
         { date: '2021-03-19' },
         { date: '2021-03-20' },
         { date: '2021-03-21'}],
-        goals: [{goalNumber: 1, exercise: 'Football', duration: '90 minutes', difficulty: 'Hard'}],
+        goals: [{goalNumber: '1', exercise: 'Football', duration: '90 minutes', difficulty: 'Hard', status: 'incomplete'}],
         user: 'Billy'
         });
+        this.db.insert({
+            plan: 'Week 2 Plan',
+            weekDates: [{ date: '2021-03-15' },
+            { date: '2021-03-16' },
+            { date: '2021-03-17' },
+            { date: '2021-03-18' },
+            { date: '2021-03-19' },
+            { date: '2021-03-20' },
+            { date: '2021-03-21'}],
+            goals: [{goalNumber: '1', exercise: 'Football', duration: '90 minutes', difficulty: 'Hard', status: 'incomplete'},
+            {goalNumber: '2', exercise: 'Tennis', duration: '60 minutes', difficulty: 'Intense', status: 'incomplete'},
+            {goalNumber: '3', exercise: 'Walk', duration: '30 minutes', difficulty: 'Easy', status: 'complete'}],
+            user: 'Billy'
+            });
     }
 
     getAllPlans() {
@@ -76,16 +93,15 @@ class Plans {
         })
     }
 
+
     deleteGoal(plan, goalNumber) {
         console.log('goal deleted, plan, goalNumber');
-        console.log( goalNumber);
-
-        this.db.update({ 'plan': 'Week1Plan'}, 
+        this.db.update({plan: plan}, 
         { $pull: { goals: { goalNumber: goalNumber } } }, function(err, goals) {
             if (err) {
                 console.log('Error deleting document', plan);
             } else {
-                console.log('document deleted into database', goals);
+                console.log('document deleted from database', goals);
             }
         })
     }
@@ -97,9 +113,10 @@ class Plans {
             duration: duration,
             difficulty: difficulty   
         }
+        
         console.log('plan created, plan');
 
-        this.db.update({plan: 'Week1Plan'}, {$push: {goals: goal}}, function(err, doc) {
+        this.db.update({plan: plan}, {$push: {goals: goal}}, function(err, doc) {
             if (err) {
                 console.log('Error inserting document', plan);
             } else {
@@ -107,6 +124,36 @@ class Plans {
             }
         })
     }
+
+    updateGoal(plan, goalNumber, exercise, duration, difficulty) {
+        console.log(plan)
+        console.log(exercise)
+        console.log(goalNumber)
+        return new Promise((resolve, reject) => {
+            //use the find() function of the database to get the data,
+            //error first callback function, err for error, entries for data
+            this.db.findOne({plan: plan, "goals.status": 'complete'}, function(err, plans) {
+            //if error occurs reject Promise
+            if (err) {
+            reject(err);
+            //if no error resolve the promise & return the data
+            } else {
+            resolve(plans);
+            //to see what the returned data looks like
+            console.log('function update returns: ', plans);
+            }
+            })
+            })
+        // this.db.update({ 'goals.goalNumber': goalNumber }, { $set: { 'goals.goalNumber': '2' } }, {}, function(err, numUp) {
+        //     if (err) {
+        //         console.log('error updating documents', err);
+        //     }
+        //     else {
+        //         console.log(numUp, 'documents updated');
+        //     }
+        // })
+    }
+
 }
 
 
