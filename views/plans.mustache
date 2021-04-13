@@ -60,6 +60,7 @@
 </form>
         {{#goals}}
             <tr id="goal">
+                <td style="display:none;">{{index}}</td>
                 <td>{{goalNumber}}</td>
                 <td>{{exercise}}</td>
                 <td>{{duration}}</td>
@@ -68,9 +69,7 @@
                 <td>
                 <form action='/updateGoal' method='post'>
                     <input type="hidden" name="updateGoal" value="{{goalNumber}}">
-                    <input type="hidden" name="exercise" value="{{exercise}}">
-                    <input type="hidden" name="duration" value="{{duration}}">
-                    <input type="hidden" name="difficulty" value="{{difficulty}}">
+                    <input type="hidden" name="key" value="{{index}}">
                     <input type="hidden" name="plan" value="{{plan}}">
                     <input type='submit' class="btn btn-primary" value='Update'>
                 </form>
@@ -115,6 +114,7 @@
 </div>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>

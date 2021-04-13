@@ -35,14 +35,33 @@ class Plans {
             { date: '2021-03-19' },
             { date: '2021-03-20' },
             { date: '2021-03-21'}],
-            goals: [{goalNumber: '1', exercise: 'Football', duration: '90 minutes', difficulty: 'Hard', status: 'incomplete'},
-            {goalNumber: '2', exercise: 'Tennis', duration: '60 minutes', difficulty: 'Intense', status: 'incomplete'},
+            goals: [{ goalNumber: '1', exercise: 'Football', duration: '90 minutes', difficulty: 'Hard', status: 'incomplete'},
+            { goalNumber: '2', exercise: 'Tennis', duration: '60 minutes', difficulty: 'Intense', status: 'incomplete'},
             {goalNumber: '3', exercise: 'Walk', duration: '30 minutes', difficulty: 'Easy', status: 'complete'}],
             user: 'Billy'
             });
     }
 
     getAllPlans() {
+        //return a Promise object, which can be resolved or rejected
+        return new Promise((resolve, reject) => {
+        //use the find() function of the database to get the data,
+        //error first callback function, err for error, entries for data
+        this.db.find({}, function(err, plans) {
+        //if error occurs reject Promise
+        if (err) {
+        reject(err);
+        //if no error resolve the promise & return the data
+        } else {
+        resolve(plans);
+        //to see what the returned data looks like
+        console.log('function all() returns: ', plans);
+        }
+        })
+        })
+        } 
+
+    getPlansForUser() {
         //return a Promise object, which can be resolved or rejected
         return new Promise((resolve, reject) => {
         //use the find() function of the database to get the data,
@@ -111,7 +130,8 @@ class Plans {
             goalNumber: goalNumber,
             exercise: exercise,
             duration: duration,
-            difficulty: difficulty   
+            difficulty: difficulty,
+            status: 'incomplete'   
         }
         
         console.log('plan created, plan');
@@ -125,33 +145,17 @@ class Plans {
         })
     }
 
-    updateGoal(plan, goalNumber, exercise, duration, difficulty) {
+    updateGoal(plan, goal, key) {
         console.log(plan)
-        console.log(exercise)
-        console.log(goalNumber)
-        return new Promise((resolve, reject) => {
-            //use the find() function of the database to get the data,
-            //error first callback function, err for error, entries for data
-            this.db.findOne({plan: plan, "goals.status": 'complete'}, function(err, plans) {
-            //if error occurs reject Promise
+        console.log(key)
+        this.db.update({ plan: plan, 'goals.goalNumber': goal }, { $set: { [`goals.${key}.status`]: 'complete' } }, {}, function(err, numUp) {
             if (err) {
-            reject(err);
-            //if no error resolve the promise & return the data
-            } else {
-            resolve(plans);
-            //to see what the returned data looks like
-            console.log('function update returns: ', plans);
+                console.log('error updating documents', err);
             }
-            })
-            })
-        // this.db.update({ 'goals.goalNumber': goalNumber }, { $set: { 'goals.goalNumber': '2' } }, {}, function(err, numUp) {
-        //     if (err) {
-        //         console.log('error updating documents', err);
-        //     }
-        //     else {
-        //         console.log(numUp, 'documents updated');
-        //     }
-        // })
+            else {
+                console.log(numUp, 'documents updated');
+            }
+        })
     }
 
 }

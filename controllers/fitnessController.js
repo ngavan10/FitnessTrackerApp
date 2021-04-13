@@ -70,6 +70,13 @@ exports.create_a_plan = function(req, res) {
                         }
                     }}
                 )
+                console.log(newResult)
+                var result = plans.filter(res => {
+                for (var i = 0; i < res.goals.length; i++) {
+                    res.goals[i].index = i;
+                  }
+                })
+
                 res.render('plans', {
                 'title': 'Fitness+',
                 'pageTitle': 'Plans',
@@ -110,6 +117,6 @@ exports.add_goal = function(req, res) {
 }
 
 exports.update_goal = function(req, res) {
-    plansDb.updateGoal(req.body.plan, req.body.updateGoal, req.body.exercise, req.body.duration, req.body.difficulty);
+    plansDb.updateGoal(req.body.plan, req.body.updateGoal, req.body.key);
     res.redirect('/plans')
 }
