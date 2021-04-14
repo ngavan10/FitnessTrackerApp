@@ -1,4 +1,6 @@
 const nedb = require('nedb');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 class Users {
 
@@ -13,16 +15,18 @@ class Users {
 
     init() {
         this.db.insert({
-        firstname: 'Billy',
-        surname: 'McMann',
-        email: 'b_mcManns@hotmail.com',
-        password: 'bdavies1',
+        firstname: 'nathan',
+        surname: 'gavan',
+        username: 'ngavan',
+        password: '$2b$10$sX7OvjSfWWC/B/sSBhYnwuqSIUGTU9M.Xas0mhFwZDQv37PpvSema',
+        email: 'nathan@live.co.uk',
+        city: 'Glasgow',
         gender: 'Male',
-        age: '28',
-        weight: '75 KG',
-        height: '170cm',
-        goal: 'Muscle Gain',
-        city: 'Toronto'
+        age: '27',
+        weight: '80 KG',
+        height: '180cm',
+        objective: 'Muscle Gain',
+        
         });
     }
 
@@ -46,9 +50,10 @@ getAllUsers() {
     })
     } 
 
-    getUserDetails() {
+    getUserDetails(username) {
+        console.log(username)
         return new Promise((resolve, reject) => {
-        this.db.find({ firstname: 'Billy',  }, function(err, user) {
+        this.db.find({ username: username}, function(err, user) {
         if (err) {
         reject(err);
         } else {
@@ -57,6 +62,48 @@ getAllUsers() {
         }
         })
         })
+        }
+
+    lookup(user, cb) {
+        this.db.find({'username': user}, function (err, entries) {
+        if (err) {
+        return cb(null, null);
+        } else {
+        if (entries.length == 0) {
+        return cb(null, null);
+        }
+        return cb(null, entries[0]);
+        }
+        });
+        }
+
+    create(firstname, surname, username, password, email, city, gender, age, weight, height, objective) {
+        const that = this;
+        bcrypt.hash(password, saltRounds).then(function(hash) {
+        var entry = {
+        firstname: firstname,
+        surname: surname,
+        username: username,
+        password: hash,
+        email: email,
+        city: city,
+        gender: gender,
+        age: age,
+        weight: weight,
+        height: height,
+        objective: objective,
+        };
+        //console.log('user entry is: ', entry);
+        
+        that.db.insert(entry, function (err) {
+        if (err) {
+        console.log("Can't insert user: ", username);
+        }
+        else {
+            console.log(entry)
+        }
+        });
+        });
         }
     
     login(name, pass) {
@@ -81,5 +128,7 @@ getAllUsers() {
 
 
 
-
-module.exports = Users;
+    const dao = new Users();
+    dao.init();
+    module.exports = dao;
+    //module.exports = Users;

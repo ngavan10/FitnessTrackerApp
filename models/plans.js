@@ -3,7 +3,7 @@ const nedb = require('nedb');
 const dbFilePath = 'plans.db'
 
 class Plans {
-    constructor(dbFilePath = 'plans.db') {
+    constructor(dbFilePath) {
         if (dbFilePath) {
             this.db = new nedb({filename: dbFilePath, autoload: true});
             console.log('DB connected to ' + dbFilePath);
@@ -24,7 +24,7 @@ class Plans {
         { date: '2021-03-20' },
         { date: '2021-03-21'}],
         goals: [{goalNumber: '1', exercise: 'Football', duration: '90 minutes', difficulty: 'Hard', status: 'incomplete'}],
-        user: 'Billy'
+        user: 'ngavan'
         });
         this.db.insert({
             plan: 'Week 2 Plan',
@@ -38,7 +38,7 @@ class Plans {
             goals: [{ goalNumber: '1', exercise: 'Football', duration: '90 minutes', difficulty: 'Hard', status: 'incomplete'},
             { goalNumber: '2', exercise: 'Tennis', duration: '60 minutes', difficulty: 'Intense', status: 'incomplete'},
             {goalNumber: '3', exercise: 'Walk', duration: '30 minutes', difficulty: 'Easy', status: 'complete'}],
-            user: 'Billy'
+            user: 'ngavan'
             });
     }
 
@@ -61,12 +61,12 @@ class Plans {
         })
         } 
 
-    getPlansForUser() {
+    getPlansForUser(username) {
         //return a Promise object, which can be resolved or rejected
         return new Promise((resolve, reject) => {
         //use the find() function of the database to get the data,
         //error first callback function, err for error, entries for data
-        this.db.find({}, function(err, plans) {
+        this.db.find({user: username}, function(err, plans) {
         //if error occurs reject Promise
         if (err) {
         reject(err);
@@ -74,7 +74,7 @@ class Plans {
         } else {
         resolve(plans);
         //to see what the returned data looks like
-        console.log('function all() returns: ', plans);
+        console.log('function plans for user returns: ', plans);
         }
         })
         })

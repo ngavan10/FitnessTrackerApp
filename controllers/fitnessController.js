@@ -3,11 +3,11 @@ const usersDAO = require('../models/users');
  const plansDAO = require('../models/plans');
  var moment = require('moment'); 
 
-const userDb = new usersDAO();
+//const userDb = new usersDAO();
 // const workoutDb = new workoutsDAO();
  const plansDb = new plansDAO();
 
-userDb.init();
+//userDb.init();
 // workoutDb.init();
  plansDb.init();
 
@@ -18,11 +18,61 @@ exports.landing_page = function(req, res) {
         });
     } 
 
-exports.dashboard = function(req, res) {
-    res.render('dashboard', {
+exports.show_register_page = function(req, res) {
+    res.render("user/register", {
         'title': 'Fitness+',
-        'pageTitle': 'Dashboard'
-        });
+    });
+    } 
+
+exports.post_new_user = function(req, res) {
+    const firstname = req.body.firstname;
+    const surname = req.body.surname;
+    const username = req.body.username;
+    const password = req.body.password;
+    const email = req.body.email;
+    const city = req.body.city;
+    const gender = req.body.gender;
+    const age = req.body.age;
+    const weight = req.body.weight;
+    const height = req.body.height;
+    const objective = req.body.objective;
+
+    //console.log("register user", user, "password",  password);
+    if (!user || !password) {
+        res.send(401, 'no user or no password');
+return; }
+usersDAO.lookup(user, function(err, u) {
+        if (u) {
+            res.send(401, "User exists:", user);
+return; }
+usersDAO.create(firstname, surname, username, password, email, city, gender, age, weight, height, objective);
+        res.redirect('/login');
+    });
+}
+
+exports.show_login_page = function(req, res) {
+    res.render("user/login", {
+        'title': 'Fitness+',
+    });
+    };
+
+exports.post_login = function(req, res) {
+    res.redirect("/dashboard");
+    }; 
+
+exports.logout = function(req, res) {
+    req.logout();
+    res.redirect("/");
+    }; 
+
+exports.dashboard = function(req, res) {
+    plansDb.getPlansForUser(req.user.username).then((plans) => {
+        res.render('dashboard', {
+            'title': 'Fitness+',
+            'pageTitle': 'Dashboard',
+            'plans': plans
+            });
+    })
     } 
 
 exports.create_a_plan = function(req, res) {
@@ -88,16 +138,18 @@ exports.create_a_plan = function(req, res) {
     }
 
     exports.user_profile = function (req, res) {
-        userDb.getUserDetails().then((user) => {
+        let user = req.user.username;
+        usersDAO.getUserDetails(user).then((details) => {
             res.render('user-profile', {
                 'title': 'Fitness+',
                 'pageTitle': 'User-Profile',
-                'user': user
+                'user': req.user,
+                'details': details
             })
         })
     }
 exports.login = function (req, res) {
-    userDb.login(req.body.username, req.body.password);
+    usersDAO.login(req.body.username, req.body.password);
     res.redirect('/dashboard');
 }
 

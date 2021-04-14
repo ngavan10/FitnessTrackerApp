@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+{{>header}}
+</head>
+<body>
+{{>nav}}
+<div class="row">
+<div class="col">
+</div>
+<div class="col pt-2">
+<h2>New User Registration</h2>
+<form method="post" role="/register">
+ <div class="form-group">
+ <label for="firstname">Firstname</label>
+ <input type="text" class="form-control" id="firstname"
+ name="firstname" placeholder="Enter firstname" required>
+ </div>
+  <div class="form-group">
+ <label for="surname">Surname</label>
+ <input type="text" class="form-control" id="surname"
+ name="surname" placeholder="Enter surname" required>
+ </div>
+ <div class="form-group">
+{{user-name-error}}
+ <label for="username">User Name</label>
+ <input type="text" class="form-control" id="username"
+ name="username" placeholder="Enter user name" required>
+ </div>
+ <div class="form-group">
+ <label for="password">Password (8 characters minimum)</label>
+ <input type="password" class="form-control" id="password"
+name="password" placeholder="Enter password" minlength="8" required>
+ </div>
+  <div class="form-group">
+ <label for="email">Email</label>
+ <input type="text" class="form-control" id="email"
+ name="email" placeholder="Enter Email Address" required>
+ </div>
+   <div class="form-group">
+ <label for="city">City</label>
+ <input type="text" class="form-control" id="city"
+ name="city" placeholder="Enter City" required>
+ </div>
+  <div class="form-group">
+ <label for="gender">Gender</label>
+ <select id="gender">
+  <option value="male">Male</option>
+  <option value="female">Female</option>
+</select>
+ </div>
+  <div class="form-group">
+ <label for="age">Age</label>
+ <input type="text" class="form-control" id="age"
+ name="age" placeholder="Enter Age" required>
+ </div>
+  <div class="form-group">
+ <label for="weight">Weight</label>
+ <input type="text" class="form-control" id="weight"
+ name="weight" placeholder="Enter Weight" required>
+ </div>
+  <div class="form-group">
+ <label for="height">Height</label>
+ <input type="text" class="form-control" id="height"
+ name="height" placeholder="Enter Height" required>
+ </div>
+   <div class="form-group">
+ <label for="objective">Objective</label>
+  <select id="objective">
+  <option value="male">Muscle Gain</option>
+  <option value="female">Weight Loss</option>
+  <option value="female">Endurance</option>
+  <option value="female">Toning Up</option>
+</select>
+ </div>
+ <div class="form-group">
+ <input type="submit" value="Register" class="btn btn-primary">
+ </div>
+</form>
+</div>
+<div class="col">
+</div>
+</div>
+</body>
+</html> 
