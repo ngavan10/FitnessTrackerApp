@@ -35,6 +35,8 @@
             <th>Goals</th>
         </thead>
         <tbody>
+       {{! <button type="button" onclick="toggleForm()" class="btn btn-primary">Add Goal To Plan</button> }}
+        {{! <div style="display:none" id="toggle"> }}
     <form method="post" action="/addGoal" role="form">
     <input type="hidden" name="addToPlan" value="{{plan}}">
  <div class="form-group">
@@ -58,6 +60,7 @@
 <input type="submit" value="Add Goal" class="btn btn-primary">
 </div>
 </form>
+{{! </div> }}
         {{#goals}}
             <tr id="goal">
                 <td style="display:none;">{{index}}</td>
@@ -97,13 +100,14 @@
         <thead>
             <th>Goal</th>
             <th>Status</th>
-   
+            <th>Plan</th>
         </thead>
         <tbody>
         {{#incompleteGoals}}
             <tr>
-                <td>{{exercise}}</td>
-                <td>{{status}}</td>
+                <td>{{goal.exercise}}</td>
+                <td>{{goal.status}}</td>
+                <td>{{name}}</td>
             </tr>
         
         {{/incompleteGoals}}    
@@ -114,6 +118,17 @@
 </div>
 
 </body>
+<script>
+
+function toggleForm() {
+    var x = document.getElementById("toggle");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
 <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

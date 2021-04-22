@@ -84,7 +84,8 @@ class Plans {
         var plan = {
             plan: plan,
             weekDates: weekDates,
-            user: user
+            user: user,
+            goals: []
         }
         console.log('plan created, plan');
 

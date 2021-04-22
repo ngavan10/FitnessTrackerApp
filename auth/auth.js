@@ -2,6 +2,7 @@ const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const users = require('../models/users');
 const bcrypt = require('bcrypt');
+var alert = require('alert'); 
 
 exports.init = function(app) {
     // setup password
@@ -14,6 +15,7 @@ exports.init = function(app) {
             return cb(err);
         }
         if (!user) {
+            alert("User cannot be found")
             console.log('user ', username, ' not found');
             return cb(null, false);
         }

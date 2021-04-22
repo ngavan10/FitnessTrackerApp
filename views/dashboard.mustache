@@ -4,11 +4,21 @@
 </head>
 <body >
 {{>nav}}
-<div class="container p-3">
-{{pageTitle}}
+<div class="row">
+<div class="col mt-2 ml-2">  
+<h3>{{pageTitle}}</h3>
 {{#plans}}
-{{plan}}
+<div class="border border-dark rounded w-50 p-2 mt-2 mr-2">
+<div class="row ml-3">
+<p>Plan: </p>{{plan}}
+</div>
+<div class="row ml-3">
+<p>Number of Goals: </p> {{goals.length}}
+</div>
+
+</div>
 {{/plans}}
+</div>
 </div>
 </body>
 
