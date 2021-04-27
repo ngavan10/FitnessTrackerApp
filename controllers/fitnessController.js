@@ -212,7 +212,7 @@ exports.add_goal = function(req, res) {
 
 exports.update_goal = function(req, res) {
     plansDb.updateGoal(req.body.plan, req.body.updateGoal, req.body.key);
-    alert(`Goal Status in ${req.body.goalNumber} in ${req.body.addToPlan}  has been updated to completed!`)
+    alert(`Status in Goal ${req.body.updateGoal} in ${req.body.plan}  has been updated to completed!`)
     res.redirect('/plans')
 }
 
