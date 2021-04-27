@@ -8,17 +8,76 @@
 <div class="col mt-2 ml-2">  
 <h3>{{pageTitle}}</h3>
 {{#plans}}
-<div class="border border-dark rounded w-50 p-2 mt-2 mr-2">
+<div class="border border-dark rounded w-75 p-2 mt-2 mr-2">
 <div class="row ml-3">
 <p>Plan: </p>{{plan}}
 </div>
 <div class="row ml-3">
 <p>Number of Goals: </p> {{goals.length}}
 </div>
-
+<div class="row ml-3">
+<form action='/sharePlan' method='post'>
+    <input type="hidden" name="plan" value="{{plan}}">
+    
+    <div class="input-group">
+        <input type="text" class="form-control" id="username"
+        name="username" placeholder="Enter Username" required>
+        <span class="input-group-btn">
+            <input type='submit' class="btn btn-primary" value='Share Plan with Friend'>
+        </span>
+    </div>
+  
+</form>
+</div>
 </div>
 {{/plans}}
 </div>
+<div class="col mt-2">
+<h3>Plans Shared by Friends</h3>
+{{#shared}}
+    {{#sharedPlans}}
+        <div class="border border-dark rounded mt-2">
+<h5>{{plan}}</h5>
+
+{{user}}
+<div>
+  <table class="table" >
+        <thead>
+            <th>Week Dates</th>
+        </thead>
+        <tbody>
+        {{#weekDates}}
+            <tr class="d-inline">
+                <td>{{date}}</td>
+            </tr>
+        {{/weekDates}}
+        </tbody>
+    </table>
+      <table class="table" id="tab">
+        <thead>
+            <th>Goals</th>
+        </thead>
+        <tbody>
+        {{#goals}}
+            <tr id="goal">
+                <td style="display:none;">{{index}}</td>
+                <td>{{goalNumber}}</td>
+                <td>{{exercise}}</td>
+                <td>{{duration}}</td>
+                <td>{{difficulty}}</td>
+                <td>{{status}}</td>
+                
+            </tr>
+        {{/goals}}
+        </tbody>
+    </table>
+
+</div>
+</div>
+    {{/sharedPlans}}
+{{/shared}}
+</div>
+
 </div>
 </body>
 

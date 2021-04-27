@@ -49,13 +49,13 @@ exports.post_new_user = function(req, res) {
     const height = req.body.height;
     const objective = req.body.objective;
 
-    //console.log("register user", user, "password",  password);
     if (!username || !password) {
         res.send(401, '<h1>no user or no password</h1>');
 return; }
 usersDAO.lookup(username, function(err, u) {
         if (u) {
             res.send(401, `<h1>User exists: ${username}</h1>`);
+            
 return; }
 usersDAO.create(firstname, surname, username, password, email, city, gender, age, weight, height, objective);
         res.redirect('/login');
@@ -79,11 +79,15 @@ exports.logout = function(req, res) {
 
 exports.dashboard = function(req, res) {
     plansDb.getPlansForUser(req.user.username).then((plans) => {
-        res.render('dashboard', {
-            'title': 'Fitness+',
-            'pageTitle': 'Dashboard',
-            'plans': plans
-            });
+        usersDAO.getUserDetails(req.user.username).then((sharedPlans) => {
+            res.render('dashboard', {
+                'title': 'Fitness+',
+                'pageTitle': 'Dashboard',
+                'plans': plans,
+                'shared': sharedPlans
+                });
+        })
+        
     })
     } 
 
@@ -210,4 +214,25 @@ exports.update_goal = function(req, res) {
     plansDb.updateGoal(req.body.plan, req.body.updateGoal, req.body.key);
     alert(`Goal Status in ${req.body.goalNumber} in ${req.body.addToPlan}  has been updated to completed!`)
     res.redirect('/plans')
+}
+
+exports.share_plan = function(req, res) {
+    var plan = req.body.plan;
+    plansDb.getPlanByName(plan).then((pl) => {
+       pl.filter(res => {
+        usersDAO.lookup(req.body.username, function(err, u) {
+            if (u) {
+                
+                usersDAO.sharePlanWithUser(req.body.username, res);
+                
+            return; }
+            alert('Invalid username')
+                    });
+       })
+        
+    });
+    
+    res.redirect('/dashboard')
+    
+  
 }

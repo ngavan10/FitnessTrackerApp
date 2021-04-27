@@ -16,6 +16,7 @@ exports.init = function(app) {
         }
         if (!user) {
             alert("User cannot be found")
+            
             console.log('user ', username, ' not found');
             return cb(null, false);
         }

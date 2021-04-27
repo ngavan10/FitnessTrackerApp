@@ -29,7 +29,7 @@ router.post('/delete', ensureLoggedIn('/login'),  controller.delete_plan);
 router.post('/deleteGoal', ensureLoggedIn('/login'),  controller.delete_goal);
 router.post('/addGoal', ensureLoggedIn('/login'),  controller.add_goal);
 router.post('/updateGoal', ensureLoggedIn('/login'),  controller.update_goal);
-
+router.post('/sharePlan', ensureLoggedIn('/login'),  controller.share_plan);
 
 router.use(function(req, res) {
 res.status(404);

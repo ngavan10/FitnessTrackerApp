@@ -26,8 +26,34 @@ class Users {
         weight: '80 KG',
         height: '180cm',
         objective: 'Muscle Gain',
-        
+        sharedPlans: [{
+            plan: 'Week 1 Plan',
+            weekDates: [{ date: '2021-03-15' },
+            { date: '2021-03-16' },
+            { date: '2021-03-17' },
+            { date: '2021-03-18' },
+            { date: '2021-03-19' },
+            { date: '2021-03-20' },
+            { date: '2021-03-21'}],
+            goals: [{goalNumber: '1', exercise: 'Football', duration: '90 minutes', difficulty: 'Hard', status: 'incomplete'}],
+            user: 'hfairbain'
+            }]
         });
+
+        this.db.insert({
+            firstname: 'harry',
+            surname: 'fairbain',
+            username: 'hfairbain',
+            password: '$2b$10$SNOdiw3X7wSbsKOz8FdxFuv7aEOs9WIChy7nvjyq6osBiw3mY81n6',
+            email: 'fairbain@live.co.uk',
+            city: 'Glasgow',
+            gender: 'Male',
+            age: '30',
+            weight: '900 KG',
+            height: '170cm',
+            objective: 'Muscle Gain',
+            sharedPlans: []
+            });
     }
 
     //a function to return all entries from the database
@@ -123,7 +149,20 @@ getAllUsers() {
             }
             })
             })
+    }
+
+    sharePlanWithUser(username, plan) {
+        console.log(plan)
+       
+        this.db.update({username: username}, {$push: {sharedPlans: plan}}, function(err, doc) {
+            if (err) {
+                console.log('Error inserting document', plan);
+            } else {
+                console.log('document inserted into database', doc);
             }
+        })
+    }
+
     }
 
 
